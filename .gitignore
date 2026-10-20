@@ -1,0 +1,11 @@
+# C/C++ object files
+*.o
+*.obj
+
+# Compiled executables
+*.out
+*.exe
+
+# Build directories
+build/
+cmake-build-*/
