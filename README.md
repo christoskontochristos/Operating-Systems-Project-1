@@ -34,10 +34,16 @@ Compile the project:
 make all
 ```
 
-Run with an input file, bucket capacity, and initial bucket count:
+Run with an input file, bucket capacity, and initial bucket count like: 
 
 ```bash
-./final -f electors.txt -b 2 -m 4
+./final -f <file> -b <integer> -m <integer>
+```
+
+e.g. : 
+
+```bash
+./final -f voters500.csv -b 2 -m 4
 ```
 
 Clean build artifacts:
@@ -47,6 +53,15 @@ make clean
 ```
 
 ## Interactive Commands
+
+The interactive command line interpreter acts like a terminal that includes prompts to manage and handle the whole application. You can see the implementation in the files Prompt.cpp and Prompt.h. The executable displays its own prompt in the terminal like so:
+
+```bash 
+--->
+```
+
+And then the user can type the following commands/prompts.  The program reads the input, checks the command and its arguments, performs the requested operation, displays the result, and waits for the next command. If the command doesn't exist it diplays it in the terminal and waits for the next input.
+
 
 | Command | Description |
 |---|---|
@@ -62,6 +77,14 @@ make clean
 | `pri` | Display the reverse index |
 | `t` | Display the total number of electors |
 | `exit` | Terminate the application |
+
+The implementation also handles leading and trailing spaces or tabs like a real bash terminal. For example:
+
+```bash
+--->      l    1001 
+```
+
+is intended to be treated as the command l 1001.
 
 ## Input Format
 
