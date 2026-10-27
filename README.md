@@ -15,14 +15,53 @@ A C++ implementation of **Linear Hashing** and **Dynamic Hashing** concepts, fea
 - **File-Based Initialization:** Load elector records from a text file.
 - **Memory Management:** Manual dynamic allocation and deallocation of data structures.
 
-## Technologies
+## What is Linear Hashing?
 
-- C++
-- Data Structures & Algorithms
-- Linear Hashing
-- Linked Lists
-- Dynamic Memory Management
-- Makefile / GNU Make
+**Linear Hashing** is a dynamic hashing technique that allows a hash table to grow incrementally without reorganizing the entire table. Instead of doubling the table all at once, it splits one bucket at a time, using a split pointer to track the next bucket to expand.
+
+### Hash Function
+
+The implementation uses a family of hash functions:
+
+\[
+h_i(k) = k \bmod (2^i \cdot m)
+\]
+
+Where:
+- \(k\) is the elector's PIN (key).
+- \(m\) is the initial number of buckets.
+- \(i\) is the current hashing round.
+
+Initially, \(i=0\), so the hash function is:
+
+\[
+h_0(k) = k \bmod m
+\]
+
+As the table grows, the next-level hash function uses twice the modulus, allowing records to be distributed across a larger number of buckets.
+
+### Bucket Splitting
+
+The split pointer identifies the next bucket to split. When the load factor exceeds the configured threshold of **0.75**, a new bucket is allocated and the records in the selected bucket are redistributed using the next-level hash function. Buckets are split sequentially, and when a round is complete, the hashing level increases and the pointer returns to the first bucket.
+
+The load factor is calculated as:
+
+\[
+\alpha = \frac{N}{B \cdot C}
+\]
+
+Where:
+- \(N\) is the number of stored records.
+- \(B\) is the number of primary buckets.
+- \(C\) is the capacity of each bucket.
+
+### Collision Handling
+
+When a bucket reaches its capacity, the implementation uses **overflow buckets linked together in a chain** to accommodate additional records. During a split, records from the primary bucket and its overflow chain are redistributed according to the updated hash function.
+
+This combination of incremental splitting and overflow handling allows the table to adapt to growing datasets while maintaining efficient search and insertion operations.
+
+
 
 ## Build & Run
 
@@ -84,7 +123,7 @@ The implementation also handles leading and trailing spaces or tabs like a real 
 --->      l    1001 
 ```
 
-is intended to be treated as the command l 1001.
+is intended to be treated as the command: l 1001.
 
 ## Input Format
 
