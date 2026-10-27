@@ -23,9 +23,9 @@ A C++ implementation of **Linear Hashing** and **Dynamic Hashing** concepts, fea
 
 The implementation uses a family of hash functions:
 
-\[
-h_i(k) = k \bmod (2^i \cdot m)
-\]
+
+h_i(k) = k % (2^i * m)
+
 
 Where:
 - \(k\) is the elector's PIN (key).
@@ -34,9 +34,11 @@ Where:
 
 Initially, \(i=0\), so the hash function is:
 
-\[
-h_0(k) = k \bmod m
-\]
+h_0(k) = k % m
+
+At the next level:
+
+h_1(k) = k % (2 * m)
 
 As the table grows, the next-level hash function uses twice the modulus, allowing records to be distributed across a larger number of buckets.
 
@@ -46,9 +48,8 @@ The split pointer identifies the next bucket to split. When the load factor exce
 
 The load factor is calculated as:
 
-\[
-\alpha = \frac{N}{B \cdot C}
-\]
+α = N / (B * C)
+
 
 Where:
 - \(N\) is the number of stored records.
